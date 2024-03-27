@@ -1,5 +1,6 @@
 import express, { Request, Response } from  'express';
 import { envs } from './configs';
+import { GitHubController } from './presentation/github/controller';
 
 (()=>{
     main()
@@ -8,10 +9,12 @@ import { envs } from './configs';
 function main(){
 
     const app = express()
+    const controller = new GitHubController()
 
-    app.post('/api/github', (req:Request, res: Response)=>{
-        res.json('GitHub Endpoint')
-    })
+    //Middleware
+    app.use(express.json())
+
+    app.post('/api/github', controller.webHookHandler) 
 
     app.listen(envs.PORT, ()=> {
         console.log(`App running on port ${envs.PORT}`);
