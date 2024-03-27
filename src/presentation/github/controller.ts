@@ -16,7 +16,7 @@ export class GitHubController{
 
         switch (gitHubEvent) {
             case 'star':
-               message = this.githubService.onStart(payload)
+               message = this.githubService.onStar(payload)
                 break;
         
             default:
